@@ -24,15 +24,15 @@ public class EnemyAI : MonoBehaviour
     private void PickNewPatrolPoints()
     {
          _navMeshAgent.destination = patrolPoints[Random.Range(0, patrolPoints.Count)].position;
-    }
+    }   
 
     private void PatrolUpdate()
     {
         if(!_isPlayerNoticed)
         {
-             if(_navMeshAgent.remainingDistance == 0) 
+             if(_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance) 
        {
-            PickNewPatrolPoints();
+            PickNewPatrolPoints();  
        }
         }
     }
@@ -40,6 +40,7 @@ public class EnemyAI : MonoBehaviour
     private void NoticePlayerUpdate()
     {  
       var direction = player.transform.position - transform.position;
+      _isPlayerNoticed = false;
 
       if (Vector3.Angle(transform.forward,direction) < viewAngle)
       
