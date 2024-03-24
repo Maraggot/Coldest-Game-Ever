@@ -1911,6 +1911,7 @@ MonoBehaviour:
   - {fileID: 230499947}
   player: {fileID: 2031709578}
   viewAngle: 90
+  damage: 30
 --- !u!114 &1749750964
 MonoBehaviour:
   m_ObjectHideFlags: 0

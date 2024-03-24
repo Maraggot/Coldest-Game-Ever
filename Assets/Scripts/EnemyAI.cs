@@ -8,15 +8,24 @@ public class EnemyAI : MonoBehaviour
     public List<Transform> patrolPoints;
     public PlayerController player;
     public float viewAngle;
+    public float damage = 30;
 
     private NavMeshAgent _navMeshAgent;
-    private bool _isPlayerNoticed;                              
+    private bool _isPlayerNoticed;       
+    private PlayerHealth _playerHealth;
+    
 
     // Start is called before the first frame update
     void Start()
     {
-        _navMeshAgent = GetComponent<NavMeshAgent>();
+        InitComponentLinks();
         PickNewPatrolPoints();
+    }
+
+    private void InitComponentLinks()
+    {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+        _playerHealth = player.GetComponent<PlayerHealth>();
     }
 
     // Update is called once per frame
@@ -70,5 +79,17 @@ public class EnemyAI : MonoBehaviour
      PatrolUpdate();
      NoticePlayerUpdate();
      ChaseUpdate();
+     AttackUpdate();
+  }
+
+  private void  AttackUpdate()
+  {
+      if(_isPlayerNoticed)
+      {
+          if (_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+          {
+              _playerHealth.DealDamage(damage * Time.deltaTime);
+          }
+      }
   }
 }
