@@ -46,4 +46,11 @@ public void DealDamage(float damage)
 
  }
 
+ public void AddHealth(float amount)
+    {
+        value += amount;
+        value = Mathf.Clamp(value, 0, _maxValue);
+        DrawHealthBar();
+    }
+
 }
